@@ -1,0 +1,120 @@
+{
+  "$schema": "https://weavetab.dev/schema/plugin.json",
+  "name": "@weavetab/plugin-auth",
+  "version": "1.0.0",
+  "description": "Zero-Leak Enterprise Session & Cookie Vault for Weavetab. Securely capture and inject encrypted browser sessions without exposing credentials to agent context.",
+  "entry": "dist/index.js",
+  "engines": {
+    "weavetab": "^2.5.1",
+    "node": ">=18.0.0"
+  },
+  "environments": [
+    "mcp"
+  ],
+  "authors": [
+    {
+      "name": "Weavetab",
+      "role": "Author & Maintainer",
+      "url": "https://weavetab.dev"
+    }
+  ],
+  "license": "MIT",
+  "tags": [
+    "Auth",
+    "Vault",
+    "Security",
+    "Session",
+    "Cookies"
+  ],
+  "links": {
+    "github": "https://github.com/weavetab/plugin-auth",
+    "npm": "https://www.npmjs.com/package/@weavetab/plugin-auth"
+  },
+  "defaultConfig": {
+    "vaultDir": "",
+    "defaultNavigate": true,
+    "includeStorage": true
+  },
+  "permissions": {
+    "cdp": {
+      "evaluate": true,
+      "reason": "Extracts and restores cookies and origin storage directly across the local CDP socket."
+    },
+    "fs": {
+      "read": true,
+      "write": true,
+      "reason": "Stores and reads encrypted AES-256-GCM session vault profiles under ~/.weavetab/vault/."
+    },
+    "tools": {
+      "add": true,
+      "reason": "Registers the plugin_auth_capture, plugin_auth_inject, plugin_auth_list, and plugin_auth_delete MCP tools."
+    }
+  },
+  "tools": [
+    {
+      "name": "plugin_auth_capture",
+      "description": "Snapshots active session cookies and origin storage from the active tab or target URL, encrypts them locally with AES-256-GCM, and stores them in the local vault. Raw credentials are never leaked to LLM context.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "service": {
+            "type": "string",
+            "description": "Identifier name for this session profile (e.g. 'github', 'google', 'stripe'). Inferred from domain if omitted."
+          },
+          "url": {
+            "type": "string",
+            "description": "Explicit URL to capture session cookies for. When omitted, inferred from the active browser tab."
+          },
+          "include_storage": {
+            "type": "boolean",
+            "description": "Whether to capture localStorage alongside cookies (default true)."
+          }
+        }
+      }
+    },
+    {
+      "name": "plugin_auth_inject",
+      "description": "Decrypts a local session vault profile and injects cookies and origin storage directly into the active browser tab via CDP. Zero credentials enter agent prompt context.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "service": {
+            "type": "string",
+            "description": "The service identifier or domain of the stored vault profile to inject (e.g. 'github')."
+          },
+          "url": {
+            "type": "string",
+            "description": "Optional destination URL to navigate to after injection. Defaults to profile origin."
+          },
+          "navigate": {
+            "type": "boolean",
+            "description": "Whether to navigate to the target URL after injection so the authenticated view renders (default true)."
+          }
+        },
+        "required": ["service"]
+      }
+    },
+    {
+      "name": "plugin_auth_list",
+      "description": "Lists all captured session profiles in the local vault with metadata (service, domain, cookie count, captured timestamp). Never reveals raw tokens or values.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {}
+      }
+    },
+    {
+      "name": "plugin_auth_delete",
+      "description": "Permanently deletes an encrypted session profile from the local vault.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "service": {
+            "type": "string",
+            "description": "Identifier of the profile to delete."
+          }
+        },
+        "required": ["service"]
+      }
+    }
+  ]
+}

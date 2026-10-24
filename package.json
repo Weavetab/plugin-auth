@@ -1,0 +1,61 @@
+{
+  "name": "@weavetab/plugin-auth",
+  "version": "1.0.0",
+  "description": "Zero-Leak Enterprise Session & Cookie Vault for Weavetab. Capture and inject authenticated sessions over CDP without exposing credentials to agent prompt context.",
+  "type": "module",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "exports": {
+    ".": {
+      "import": "./dist/index.js",
+      "types": "./dist/index.d.ts"
+    }
+  },
+  "files": [
+    "dist",
+    "weavetab.json",
+    "README.md",
+    "LICENSE"
+  ],
+  "scripts": {
+    "build": "tsc",
+    "dev": "tsc --watch",
+    "test": "node --test test/*.test.mjs",
+    "prepublishOnly": "npm run build"
+  },
+  "devDependencies": {
+    "@types/node": "^20.19.0",
+    "@weavetab/sdk": "^2.5.1",
+    "typescript": "^5.5.0"
+  },
+  "peerDependencies": {
+    "@weavetab/sdk": "^2.5.1"
+  },
+  "keywords": [
+    "weavetab",
+    "weavetab-plugin",
+    "weavetab-official",
+    "mcp",
+    "auth",
+    "session",
+    "vault",
+    "cookies",
+    "zero-leak"
+  ],
+  "author": "Weavetab (https://weavetab.dev)",
+  "license": "MIT",
+  "homepage": "https://github.com/weavetab/plugin-auth",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/weavetab/plugin-auth.git"
+  },
+  "bugs": {
+    "url": "https://github.com/weavetab/plugin-auth/issues"
+  },
+  "engines": {
+    "node": ">=18.0.0"
+  },
+  "publishConfig": {
+    "access": "public"
+  }
+}
