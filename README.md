@@ -1,4 +1,4 @@
-# `@weavetab/plugin-auth`
+# `@weavetab/plugin-auth` BETA!!!!!!!!!!
 
 > Zero-Leak Enterprise Session & Cookie Vault for [Weavetab](https://weavetab.dev).
 
