@@ -1,6 +1,6 @@
 {
   "name": "@weavetab/plugin-auth",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Zero-Leak Enterprise Session & Cookie Vault for Weavetab. Capture and inject authenticated sessions over CDP without exposing credentials to agent prompt context.",
   "type": "module",
   "main": "dist/index.js",

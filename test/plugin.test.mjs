@@ -52,7 +52,7 @@ describe("@weavetab/plugin-auth", () => {
   it("exposes valid plugin definition", () => {
     assert.equal(authPlugin, plugin);
     assert.equal(plugin.name, "@weavetab/plugin-auth");
-    assert.equal(plugin.version, "1.0.0");
+    assert.equal(plugin.version, "1.0.1");
     assert.equal(typeof plugin.onLoad, "function");
     assert.equal(typeof plugin.onUnload, "function");
   });

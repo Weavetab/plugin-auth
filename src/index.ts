@@ -10,7 +10,7 @@ export * from "./inject.js";
 
 export const authPlugin = definePlugin({
   name: "@weavetab/plugin-auth",
-  version: "1.0.0",
+  version: "1.0.1",
   description: "Zero-Leak Enterprise Session & Cookie Vault for Weavetab.",
 
   defaultConfig: {
