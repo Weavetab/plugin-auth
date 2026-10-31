@@ -1,6 +1,6 @@
 # `@weavetab/plugin-auth` BETA!!!!!!!!!!
 
-> Zero-Leak Enterprise Session & Cookie Vault for [Weavetab](https://weavetab.dev).
+> Zero-Leak Session & Cookie Vault for [Weavetab](https://weavetab.dev).
 
 Capture, encrypt, and inject authenticated browser sessions directly over the Chrome DevTools Protocol socket without exposing credentials or session tokens to agent prompt context.
 
@@ -12,7 +12,7 @@ When AI coding and automation agents encounter OAuth flows, 2FA prompts, or SSO 
 
 ## The Architecture
 
-`@weavetab/plugin-auth` solves authentication via Layer 0 CDP:
+`@weavetab/plugin-auth` solves authentication via direct CDP:
 
 1. **Snapshot (`plugin_auth_capture`)**: Extracts active cookies and origin storage from the developer's real browser session. The bundle is immediately encrypted on disk using AES-256-GCM with a local machine key (`~/.weavetab/vault/<service>.enc`).
 2. **Zero-Token Injection (`plugin_auth_inject`)**: When the agent operates on that service, it calls `plugin_auth_inject({ service: "github" })`. The plugin decrypts the bundle locally and writes cookies directly into the browser tab via CDP `Network.setCookies`.

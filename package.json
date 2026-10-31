@@ -25,11 +25,11 @@
   },
   "devDependencies": {
     "@types/node": "^20.19.0",
-    "@weavetab/sdk": "^2.5.1",
+    "@weavetab/sdk": "^2.6.0",
     "typescript": "^5.5.0"
   },
   "peerDependencies": {
-    "@weavetab/sdk": "^2.5.1"
+    "@weavetab/sdk": ">=2.5.0"
   },
   "keywords": [
     "weavetab",
